@@ -1,6 +1,6 @@
 [package]
 name = "ocrmypdf-rs"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 authors = ["Lucas Souza <ls4803326@gmail.com>"]
 license = "MIT OR Apache-2.0"
@@ -12,3 +12,4 @@ keywords = ["ocr", "ocrmypdf", "pdf"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+indicatif = "0.17.8"

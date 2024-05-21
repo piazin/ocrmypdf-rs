@@ -1,3 +1,4 @@
+use indicatif::ProgressBar;
 use std::process::Command;
 
 pub struct OcrMyPdf {
@@ -33,7 +34,6 @@ pub trait Ocr {
 impl Ocr for OcrMyPdf {
     fn execute(&mut self) {
         let _ = execute_ocr(&self.args, &self.input_path, &self.output_path);
-        println!("{:?}, {}, {}", self.args, self.input_path, self.output_path);
     }
 
     fn set_args(&mut self, args: Vec<String>) -> &mut Self {
@@ -60,7 +60,14 @@ fn execute_ocr(
     let mut cmd = Command::new("ocrmypdf");
     cmd.arg(input_path).arg(output_path).args(args);
 
-    let _ = cmd.output().expect("error to parse");
+    let pb = ProgressBar::new_spinner();
+    pb.set_message("Executing OCR...");
 
+    let output = cmd.output().expect("Failed to execute ocrmypdf");
+
+    pb.finish_with_message(format!(
+        "OCR completed  {}",
+        String::from_utf8_lossy(&output.stdout)
+    ));
     Ok(())
 }
