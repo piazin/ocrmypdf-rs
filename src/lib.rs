@@ -64,14 +64,12 @@ fn execute_ocr(
     let output = cmd.output().expect("Failed to execute ocrmypdf");
 
     if output.status.success() {
-        spinner.stop();
-        println!(" -> OCR completed successfully!");
+        spinner.stop_with_symbol("✔");
     } else {
-        spinner.stop();
-        println!(
-            "OCR failed with error: {}",
+        spinner.stop_with_message(format!(
+            "✘ Failed to run ocrmypdf with error: {}",
             String::from_utf8_lossy(&output.stderr)
-        );
+        ));
     }
 
     Ok(())

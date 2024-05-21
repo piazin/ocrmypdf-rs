@@ -1,6 +1,6 @@
 [package]
 name = "ocrmypdf-rs"
-version = "0.0.4"
+version = "0.0.5"
 edition = "2021"
 authors = ["Lucas Souza <ls4803326@gmail.com>"]
 license = "MIT OR Apache-2.0"
