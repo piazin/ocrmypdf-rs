@@ -1,4 +1,4 @@
-use indicatif::ProgressBar;
+use spinners::{Spinner, Spinners};
 use std::process::Command;
 
 pub struct OcrMyPdf {
@@ -60,21 +60,19 @@ fn execute_ocr(
     let mut cmd = Command::new("ocrmypdf");
     cmd.arg(input_path).arg(output_path).args(args);
 
-    let pb = ProgressBar::new_spinner();
-    pb.set_message("Executing OCR...");
-
+    let mut spinner = Spinner::new(Spinners::Runner, "Running OCR...".into());
     let output = cmd.output().expect("Failed to execute ocrmypdf");
 
     if output.status.success() {
-        println!("OCR completed successfully");
+        spinner.stop();
+        println!(" -> OCR completed successfully!");
     } else {
+        spinner.stop();
         println!(
             "OCR failed with error: {}",
             String::from_utf8_lossy(&output.stderr)
         );
     }
-
-    pb.finish();
 
     Ok(())
 }
