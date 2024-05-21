@@ -60,7 +60,7 @@ fn execute_ocr(
     let mut cmd = Command::new("ocrmypdf");
     cmd.arg(input_path).arg(output_path).args(args);
 
-    let mut spinner = Spinner::new(Spinners::Runner, "Running OCR...".into());
+    let mut spinner = Spinner::new(Spinners::Runner, "Running OCR".into());
     let output = cmd.output().expect("Failed to execute ocrmypdf");
 
     if output.status.success() {
